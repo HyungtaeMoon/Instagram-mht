@@ -15,7 +15,8 @@ class User(models.Model):
     name = models.CharField(
         '이름',
         max_length=30,
-        blank=True),
+        blank=True,
+    )
     site = models.URLField(
         '사이트',
         max_length=150,
