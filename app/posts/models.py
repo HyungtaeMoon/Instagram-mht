@@ -10,11 +10,15 @@ class Post(models.Model):
     )
     photo = models.ImageField(
         '사진',
-        upload_to='post',)
+        upload_to='post',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = '포스트'
         verbose_name_plural = f'{verbose_name} 목록'
+        ordering = ['-pk']
 
 
 class Comment(models.Model):
