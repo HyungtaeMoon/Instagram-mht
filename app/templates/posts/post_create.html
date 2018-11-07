@@ -5,9 +5,14 @@
     <h2>포스트 추가</h2>
     <form action="" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
+        {% for field in form %}
         <div class="form-group">
-            {{ form }}
+            <label for="{{ field.id_for_label }}">
+                {{ field.label}}
+            </label>
+            {{ field }}
         </div>
+        {% endfor %}
         <button class="btn btn-primary btn-block">업로드</button>
     </form>
 </div>
