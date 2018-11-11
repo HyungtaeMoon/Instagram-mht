@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- Normalize.css: 브라우저마다 다른 CSS기본 설정값들을 같게 맞춰줌 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<title>Instagram</title>
+</head>
+<body>
+	<div id="wrap">
+		<!--네비게이션 바-->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<!--좌측 제목-->
+			<a href="#" class="navbar-brand">Instagram</a>
+			<!--검색 form-->
+			<form action="#" class="form-inline ml-md-auto">
+				<input type="text" class="form-control" placeholder="검색">
+			</form>
+			<!--우측 3개 메뉴 버튼-->
+			<ul class="navbar-nav ml-md-auto">
+				<li class="nav-item mr-sm-1">
+					<a href="{% url 'posts:post-create'%}" class="btn btn-outline-primary">+ 포스팅</a>
+				</li>
+				<li class="nav-item mr-sm-1">
+					<a href="#" class="btn btn-outline-secondary">Explore</a>
+				</li>
+				<li class="nav-item mr-sm-1">
+					<a href="#" class="btn btn-outline-secondary">Favorites</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="btn btn-outline-secondary">Profile</a>
+				</li>
+			</ul>
+
+		</nav>
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
