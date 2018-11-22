@@ -16,7 +16,7 @@
 		<!--네비게이션 바-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<!--좌측 제목-->
-			<a href="#" class="navbar-brand">Instagram</a>
+			<a href="{% url 'posts:post-list' %}" class="navbar-brand">Instagram</a>
 			<!--검색 form-->
 			<form action="#" class="form-inline ml-md-auto">
 				<input type="text" class="form-control" placeholder="검색">
@@ -27,9 +27,14 @@
 				<li class="nav-item mr-sm-1">
 					<a href="{% url 'posts:post-create'%}" class="btn btn-outline-primary">+ 포스팅</a>
 				</li>
-				<li class="nav-item mr-sm-1">
-					<a href="#" class="btn btn-outline-secondary">Logout</a>
-				</li>
+
+                <li class="nav-item mr-sm-1">
+                    <form action="{% url 'members:logout' %}" method="POST">
+                    {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-secondary">Logout</button>
+                    </form>
+                    </li>
+
 				<li class="nav-item mr-sm-1">
 					<a href="#" class="btn btn-outline-secondary">{{ user.username }}님의 프로필</a>
 				</li>
@@ -43,7 +48,7 @@
 					<a href="{% url 'members:login' %}" class="btn btn-outline-secondary">Login</a>
 				</li>
 				<li class="nav-item mr-sm-1">
-					<a href="#" class="btn btn-outline-secondary">Signup</a>
+					<a href="{% url 'members:signup' %}" class="btn btn-outline-secondary">Signup</a>
 				</li>
 			</ul>
         {% endif %}
