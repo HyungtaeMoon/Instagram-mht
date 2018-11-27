@@ -48,9 +48,9 @@ class SignupForm(forms.Form):
             raise forms.ValidationError('이미 사용중인 아이디입니다')
         return data
 
-    def clean(self):
-        super().clean()
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
+    def clean_password2(self):
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
         if password1 != password2:
             raise forms.ValidationError('비밀번호와 비밀번호 확인의 입력값이 다릅니다.')
+        return password2
