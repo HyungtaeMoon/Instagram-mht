@@ -21,6 +21,7 @@ class LoginForm(forms.Form):
 
 class SignupForm(forms.Form):
     username = forms.CharField(
+        label='사용자명',
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
@@ -28,6 +29,7 @@ class SignupForm(forms.Form):
         )
     )
     password1 = forms.CharField(
+        label='비밀번호',
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -35,6 +37,7 @@ class SignupForm(forms.Form):
         )
     )
     password2 = forms.CharField(
+        label='비밀번호 확인',
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-control',
@@ -45,6 +48,7 @@ class SignupForm(forms.Form):
     def clean_username(self):
         data = self.cleaned_data['username']
         if User.objects.filter(username=data).exists():
+            self.fields['username'].widget.attrs['class'] += ' is-invalid'
             raise forms.ValidationError('이미 사용중인 아이디입니다')
         return data
 
@@ -52,5 +56,7 @@ class SignupForm(forms.Form):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 != password2:
+            self.fields['password1'].widget.attrs['class'] += ' is-invalid'
+            self.fields['password2'].widget.attrs['class'] += ' is-invalid'
             raise forms.ValidationError('비밀번호와 비밀번호 확인의 입력값이 다릅니다.')
         return password2
