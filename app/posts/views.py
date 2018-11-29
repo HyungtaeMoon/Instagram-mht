@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -14,20 +15,15 @@ def post_list(request):
     return render(request, 'posts/post_list.html', context)
 
 
+@login_required
 def post_create(request):
-    if not request.user.is_authenticated:
-        return redirect('posts:post-list')
-
+    context = {}
     if request.method == 'POST':
-        post = Post(
-            author=request.user,
-            photo=request.FILES['photo'],
-        )
-        post.save()
-        return redirect('posts:post-list')
+        form = PostCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(author=request.user)
+            return redirect('posts:post-list')
     else:
         form = PostCreateForm()
-        context = {
-            'form': form,
-        }
-        return render(request, 'posts/post_create.html', context)
+    context['form'] = form
+    return render(request, 'posts/post_create.html', context)
