@@ -12,8 +12,17 @@
 
                     <div class="card-body">
                         <img src="{{ post.photo.url }}" class="card-img-top" alt="">
+                        <ul class="list-unstyled">
+                            {% for comment in post.comment.all %}
+                                <li>
+                                    <strong>{{ comment.author }}</strong>
+                                    <strong>{{ comment.content }}</strong>
+                                </li>
+                            {% endfor %}
+                        </ul>>
                     </div>
                 </div>
+
         </div>
         {% endfor %}
     </div>

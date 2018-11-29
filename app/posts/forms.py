@@ -25,4 +25,10 @@ class PostCreateForm(forms.Form):
             photo=self.cleaned_data['photo'],
             **kwargs,
         )
+        comment_content = self.cleaned_data.get('comment')
+        if comment_content:
+            post.comment.create(
+                author=post.author,
+                content=comment_content,
+            )
         return post
