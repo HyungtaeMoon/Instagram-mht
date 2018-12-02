@@ -27,3 +27,7 @@ def post_create(request):
         form = PostCreateForm()
     context['form'] = form
     return render(request, 'posts/post_create.html', context)
+
+
+def comment_create(request):
+    pass
