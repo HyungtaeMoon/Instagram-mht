@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 
 from .models import Post
-from .forms import PostCreateForm, CommentCreateForm, CommentForm
+from .forms import PostCreateForm, CommentCreateForm, CommentForm, PostForm
 
 
 def post_list(request):
@@ -19,12 +19,22 @@ def post_list(request):
 def post_create(request):
     context = {}
     if request.method == 'POST':
-        form = PostCreateForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(author=request.user)
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+
+            comment_content = form.cleaned_data['comment']
+            if comment_content:
+
+                post.comments.create(
+                    author=request.user,
+                    content=comment_content,
+                )
             return redirect('posts:post-list')
     else:
-        form = PostCreateForm()
+        form = PostForm()
     context['form'] = form
     return render(request, 'posts/post_create.html', context)
 
