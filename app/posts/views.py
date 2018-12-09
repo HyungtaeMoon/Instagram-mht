@@ -1,9 +1,11 @@
+import re
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 
-from .models import Post
-from .forms import PostCreateForm, CommentCreateForm, CommentForm, PostForm
+from .models import Post, HashTag
+from .forms import CommentForm, PostForm
 
 
 def post_list(request):
@@ -48,4 +50,10 @@ def comment_create(request, post_pk):
             comment.post = post
             comment.author = request.user
             comment.save()
+
+            p = re.compile(r'#(?P<tag>\w+)')
+            tags = [HashTag.objects.get_or_create(name=name)[0]
+                    for name in re.findall(p, comment.content)]
+            comment.tags.set(tags)
+
             return redirect('posts:post-list')
