@@ -61,6 +61,13 @@ class Comment(models.Model):
                 for name in re.findall(self.TAG_PATTERN, self.content)]
         self.tags.set(tags)
 
+    @property
+    def html(self):
+        return re.sub(
+                self.TAG_PATTERN,
+                r'<a href="/explore/tags\g<tag>/">#\g<tag></a>',
+                self.content)
+
 
 class HashTag(models.Model):
     name = models.CharField(
