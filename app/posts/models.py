@@ -56,7 +56,7 @@ class Comment(models.Model):
             # 저장하기 전에 _html 필드를 채워야 함 (content 값을 사용해서)
             self._html = re.sub(
                 self.TAG_PATTERN,
-                r'<a href="/explore/tags\g<tag>/">#\g<tag></a>',
+                r'<a href="/explore/tags/\g<tag>/">#\g<tag></a>',
                 self.content,
             )
 
@@ -67,9 +67,10 @@ class Comment(models.Model):
             tags = [HashTag.objects.get_or_create(name=name)[0]
                     for name in re.findall(self.TAG_PATTERN, self.content)]
             self.tags.set(tags)
+
         save_html()
-        save_tags()
         super().save(*args, **kwargs)
+        save_tags()
 
     @property
     def html(self):
