@@ -44,8 +44,18 @@ def signup_view(request):
 
 @login_required
 def profile_view(request):
-        form = UserProfileForm(instance=request.user)
-        context = {
-            'form': form,
-        }
-        return render(request, 'members/profile.html', context)
+    if request.method == 'POST':
+        form = UserProfileForm(
+            request.POST,
+            request.FILES,
+            instance=request.user,
+        )
+        if form.is_valid():
+            form.save()
+    # instance=request.user 를 지정하지 않으면 어떤 유저인지 알 수가 없음
+    # 예를들면 프로필 화면에서 user1 의 프로필을 찾지 못해 빈 form 으로 보여짐
+    form = UserProfileForm(instance=request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'members/profile.html', context)
