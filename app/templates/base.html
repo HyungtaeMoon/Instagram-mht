@@ -52,7 +52,7 @@
                     </li>
 
 				<li class="nav-item mr-sm-1">
-					<a href="#" class="btn btn-outline-secondary">{{ user.username }}님의 프로필</a>
+					<a href="{% url 'members:profile' %}" class="btn btn-outline-secondary">{{ user.username }}님의 프로필</a>
 				</li>
 				<li class="nav-item">
 					<a href="#" class="btn btn-outline-secondary">Favorite</a>

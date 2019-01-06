@@ -99,3 +99,48 @@ class SignupForm(forms.Form):
                 password=self.cleaned_data['password1']
             )
             return user
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'last_name',
+            'first_name',
+            'img_profile',
+            'site',
+            'introduce',
+        ]
+        widgets = {
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'img_profile': forms.ClearableFileInput(
+                attrs={
+                    'class': 'form-control-file',
+                }
+            ),
+            'site': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'introduce': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        }
